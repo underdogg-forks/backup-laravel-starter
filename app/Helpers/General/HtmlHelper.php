@@ -30,7 +30,7 @@ class HtmlHelper
     /**
      * @param       $url
      * @param array $attributes
-     * @param null  $secure
+     * @param null $secure
      *
      * @return mixed
      */
@@ -42,46 +42,19 @@ class HtmlHelper
 
         $attributes['href'] = $this->url->asset($url, $secure);
 
-        return $this->toHtmlString('<link'.$this->attributes($attributes).'>'.PHP_EOL);
+        return $this->toHtmlString('<link' . $this->attributes($attributes) . '>' . PHP_EOL);
     }
 
     /**
-     * Generate a link to a JavaScript file.
+     * Transform the string to an Html serializable object.
      *
-     * @param string $url
-     * @param array  $attributes
-     * @param bool   $secure
+     * @param $html
      *
      * @return \Illuminate\Support\HtmlString
      */
-    public function script($url, $attributes = [], $secure = null)
+    protected function toHtmlString($html)
     {
-        $attributes['src'] = $this->url->asset($url, $secure);
-
-        return $this->toHtmlString('<script'.$this->attributes($attributes).'></script>'.PHP_EOL);
-    }
-
-    /**
-     * @param        $cancel_to
-     * @param        $title
-     * @param string $classes
-     *
-     * @return HtmlString
-     */
-    public function formCancel($cancel_to, $title, $classes = 'btn btn-danger btn-sm')
-    {
-        return $this->toHtmlString('<a href="'.$cancel_to.'" class="'.$classes.'"><i class="fa fa-reply"></i> '.$title.'</a>'.PHP_EOL);
-    }
-
-    /**
-     * @param        $title
-     * @param string $classes
-     *
-     * @return HtmlString
-     */
-    public function formSubmit($title, $classes = 'btn btn-success btn-sm pull-right')
-    {
-        return $this->toHtmlString('<button type="submit" class="'.$classes.'"><i class="fa fa-save"></i> '.$title.'</button>'.PHP_EOL);
+        return new HtmlString($html);
     }
 
     /**
@@ -95,7 +68,7 @@ class HtmlHelper
     {
         $html = [];
 
-        foreach ((array) $attributes as $key => $value) {
+        foreach ((array)$attributes as $key => $value) {
             $element = $this->attributeElement($key, $value);
 
             if (!is_null($element)) {
@@ -103,7 +76,7 @@ class HtmlHelper
             }
         }
 
-        return count($html) > 0 ? ' '.implode(' ', $html) : '';
+        return count($html) > 0 ? ' ' . implode(' ', $html) : '';
     }
 
     /**
@@ -131,19 +104,46 @@ class HtmlHelper
         }
 
         if (!is_null($value)) {
-            return $key.'="'.e($value).'"';
+            return $key . '="' . e($value) . '"';
         }
     }
 
     /**
-     * Transform the string to an Html serializable object.
+     * Generate a link to a JavaScript file.
      *
-     * @param $html
+     * @param string $url
+     * @param array $attributes
+     * @param bool $secure
      *
      * @return \Illuminate\Support\HtmlString
      */
-    protected function toHtmlString($html)
+    public function script($url, $attributes = [], $secure = null)
     {
-        return new HtmlString($html);
+        $attributes['src'] = $this->url->asset($url, $secure);
+
+        return $this->toHtmlString('<script' . $this->attributes($attributes) . '></script>' . PHP_EOL);
+    }
+
+    /**
+     * @param        $cancel_to
+     * @param        $title
+     * @param string $classes
+     *
+     * @return HtmlString
+     */
+    public function formCancel($cancel_to, $title, $classes = 'btn btn-danger btn-sm')
+    {
+        return $this->toHtmlString('<a href="' . $cancel_to . '" class="' . $classes . '"><i class="fa fa-reply"></i> ' . $title . '</a>' . PHP_EOL);
+    }
+
+    /**
+     * @param        $title
+     * @param string $classes
+     *
+     * @return HtmlString
+     */
+    public function formSubmit($title, $classes = 'btn btn-success btn-sm pull-right')
+    {
+        return $this->toHtmlString('<button type="submit" class="' . $classes . '"><i class="fa fa-save"></i> ' . $title . '</button>' . PHP_EOL);
     }
 }

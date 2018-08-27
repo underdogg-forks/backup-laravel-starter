@@ -54,13 +54,13 @@ class BackupController extends Controller
             // only take the zip files into account
             if (substr($f, -4) == '.zip' && $disk->exists($f)) {
                 $$module_name[] = [
-                    'file_path'               => $f,
-                    'file_name'               => str_replace(str_replace(' ', '-', config('backup.backup.name')).'/', '', $f),
-                    'file_size_byte'          => $disk->size($f),
-                    'file_size'               => humanFilesize($disk->size($f)),
+                    'file_path' => $f,
+                    'file_name' => str_replace(str_replace(' ', '-', config('backup.backup.name')) . '/', '', $f),
+                    'file_size_byte' => $disk->size($f),
+                    'file_size' => humanFilesize($disk->size($f)),
                     'last_modified_timestamp' => $disk->lastModified($f),
-                    'date_created'            => Carbon::createFromTimestamp($disk->lastModified($f))->toDayDateTimeString(),
-                    'date_ago'                => Carbon::createFromTimestamp($disk->lastModified($f))->diffForHumans(Carbon::now()),
+                    'date_created' => Carbon::createFromTimestamp($disk->lastModified($f))->toDayDateTimeString(),
+                    'date_ago' => Carbon::createFromTimestamp($disk->lastModified($f))->diffForHumans(Carbon::now()),
                 ];
             }
         }
@@ -70,7 +70,8 @@ class BackupController extends Controller
 
         // return view("backend.backups.backups")->with(compact('backups'));
         return view("backend.$module_path.backups",
-        compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action', 'module_name_singular'));
+            compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action',
+                'module_name_singular'));
     }
 
     /**
@@ -87,13 +88,20 @@ class BackupController extends Controller
             Artisan::call('backup:run');
             $output = Artisan::output();
             // log the results
-            Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n".$output);
+            Log::info("Backpack\BackupManager -- new backup started from admin interface \r\n" . $output);
             // return the results as a response to the ajax call
             // Alert::success('New backup created');
             flash("<i class='fas fa-check'></i> New backup created")->success()->important();
 
             return redirect()->back();
         } catch (Exception $e) {
+
+
+            //BackupHasFailed
+            $output = Artisan::output();
+            dd($output);
+
+
             Flash::error($e->getMessage());
 
             return redirect()->back();
@@ -107,7 +115,7 @@ class BackupController extends Controller
      */
     public function download($file_name)
     {
-        $file = str_replace(' ', '-', config('backup.backup.name')).'/'.$file_name;
+        $file = str_replace(' ', '-', config('backup.backup.name')) . '/' . $file_name;
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         if ($disk->exists($file)) {
             $fs = Storage::disk(config('backup.backup.destination.disks')[0])->getDriver();
@@ -116,9 +124,9 @@ class BackupController extends Controller
             return \Response::stream(function () use ($stream) {
                 fpassthru($stream);
             }, 200, [
-                'Content-Type'        => $fs->getMimetype($file),
-                'Content-Length'      => $fs->getSize($file),
-                'Content-disposition' => 'attachment; filename="'.basename($file).'"',
+                'Content-Type' => $fs->getMimetype($file),
+                'Content-Length' => $fs->getSize($file),
+                'Content-disposition' => 'attachment; filename="' . basename($file) . '"',
             ]);
         } else {
             abort(404, "The backup file doesn't exist.");
@@ -132,8 +140,8 @@ class BackupController extends Controller
     {
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
 
-        if ($disk->exists(str_replace(' ', '-', config('backup.backup.name')).'/'.$file_name)) {
-            $disk->delete(str_replace(' ', '-', config('backup.backup.name')).'/'.$file_name);
+        if ($disk->exists(str_replace(' ', '-', config('backup.backup.name')) . '/' . $file_name)) {
+            $disk->delete(str_replace(' ', '-', config('backup.backup.name')) . '/' . $file_name);
 
             return redirect()->back();
         } else {

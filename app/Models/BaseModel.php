@@ -59,7 +59,7 @@ class BaseModel extends Model
     {
         return $this->getConnection()->select(
             (new \Illuminate\Database\Schema\Grammars\MySqlGrammar())->compileColumnListing()
-            .' order by ordinal_position',
+            . ' order by ordinal_position',
             [$this->getConnection()->getDatabaseName(), $this->getTable()]
         );
     }
@@ -85,7 +85,7 @@ class BaseModel extends Model
                 break;
 
             default:
-                return '<span class="badge badge-primary">Status:'.$this->status.'</span>';
+                return '<span class="badge badge-primary">Status:' . $this->status . '</span>';
                 break;
         }
     }

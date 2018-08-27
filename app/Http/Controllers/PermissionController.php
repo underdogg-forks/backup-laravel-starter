@@ -67,7 +67,7 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Permission          $permission
+     * @param \App\Permission $permission
      *
      * @return \Illuminate\Http\Response
      */

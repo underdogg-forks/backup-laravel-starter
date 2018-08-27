@@ -46,10 +46,11 @@ class SettingController extends Controller
 
         $$module_name = $module_model::paginate();
 
-        Log::info(label_case($module_title.' '.$module_action).' | User:'.Auth::user()->name.'(ID:'.Auth::user()->id.')');
+        Log::info(label_case($module_title . ' ' . $module_action) . ' | User:' . Auth::user()->name . '(ID:' . Auth::user()->id . ')');
 
         return view("backend.$module_path.index",
-        compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action', 'module_name_singular'));
+            compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action',
+                'module_name_singular'));
     }
 
     public function store(Request $request)

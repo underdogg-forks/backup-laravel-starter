@@ -12,7 +12,7 @@
 */
 
 if (!app()->routesAreCached()) {
-    require __DIR__.'/Http/routes.php';
+    require __DIR__ . '/Http/routes.php';
 }
 
 /*
@@ -27,16 +27,16 @@ if (!app()->routesAreCached()) {
     $menu->add('Modules', [
         'class' => 'nav-title',
     ])
-    ->data('order', 2);
+        ->data('order', 2);
 
     // Articles Dropdown
     $accessControl = $menu->add('<i class="fas fa-file-alt"></i> Article', [
         'class' => 'nav-item nav-dropdown',
     ])
-    ->data('order', 3);
+        ->data('order', 3);
     $accessControl->link->attr([
         'class' => 'nav-link nav-dropdown-toggle',
-        'href'  => '#',
+        'href' => '#',
     ]);
 
     // Submenu: Posts
@@ -44,26 +44,26 @@ if (!app()->routesAreCached()) {
         'route' => 'backend.posts.index',
         'class' => 'nav-item',
     ])
-    ->data('order', 4)
-    ->link->attr([
-        'class' => 'nav-link',
-    ]);
+        ->data('order', 4)
+        ->link->attr([
+            'class' => 'nav-link',
+        ]);
     // Submenu: Categories
     $accessControl->add('<i class="fas fa-sitemap"></i> Categories', [
         'route' => 'backend.categories.index',
         'class' => 'nav-item',
     ])
-    ->data('order', 5)
-    ->link->attr([
-        'class' => 'nav-link',
-    ]);
+        ->data('order', 5)
+        ->link->attr([
+            'class' => 'nav-link',
+        ]);
     // Submenu: Tags
     $accessControl->add('<i class="fas fa-tags"></i> Tags', [
         'route' => 'backend.tags.index',
         'class' => 'nav-item',
     ])
-    ->data('order', 6)
-    ->link->attr([
-        'class' => 'nav-link',
-    ]);
+        ->data('order', 6)
+        ->link->attr([
+            'class' => 'nav-link',
+        ]);
 })->sortBy('order');

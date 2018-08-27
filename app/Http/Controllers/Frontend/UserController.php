@@ -53,14 +53,15 @@ class UserController extends Controller
         $module_action = 'Show';
 
         $page_heading = label_case($module_title);
-        $title = $page_heading.' '.label_case($module_action);
+        $title = $page_heading . ' ' . label_case($module_action);
 
         $$module_name_singular = $module_model::findOrFail($id);
 
         $body_class = 'profile-page';
 
         return view("frontend.$module_name.show",
-        compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action', 'module_name_singular', "$module_name_singular", 'page_heading', 'title', 'body_class'));
+            compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action',
+                'module_name_singular', "$module_name_singular", 'page_heading', 'title', 'body_class'));
     }
 
     /**
@@ -83,7 +84,9 @@ class UserController extends Controller
 
         $body_class = 'profile-page';
 
-        return view("frontend.$module_name.profile", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'module_title', 'body_class'));
+        return view("frontend.$module_name.profile",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'module_title',
+                'body_class'));
     }
 
     /**
@@ -105,14 +108,15 @@ class UserController extends Controller
 
         $body_class = 'profile-page';
 
-        return view("frontend.$module_name.profileEdit", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'body_class'));
+        return view("frontend.$module_name.profileEdit",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'body_class'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -132,10 +136,10 @@ class UserController extends Controller
         // Handle Avatar upload
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $filename = 'avatar-'.$$module_name_singular->id.'.'.$avatar->getClientOriginalExtension();
+            $filename = 'avatar-' . $$module_name_singular->id . '.' . $avatar->getClientOriginalExtension();
             $img = Image::make($avatar)->resize(null, 400, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path('/photos/avatars/'.$filename));
+            })->save(public_path('/photos/avatars/' . $filename));
             $$module_name_singular->avatar = $filename;
             $$module_name_singular->save();
         }
@@ -164,14 +168,15 @@ class UserController extends Controller
 
         $body_class = 'profile-page';
 
-        return view("frontend.$module_name.changePassword", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'body_class'));
+        return view("frontend.$module_name.changePassword",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'body_class'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -212,14 +217,16 @@ class UserController extends Controller
         $userRoles = $$module_name_singular->roles->pluck('name')->all();
         $userPermissions = $$module_name_singular->permissions->pluck('name')->all();
 
-        return view("frontend.$module_name.edit", compact('userRoles', 'userPermissions', 'module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'roles', 'permissions', 'body_class'));
+        return view("frontend.$module_name.edit",
+            compact('userRoles', 'userPermissions', 'module_name', "$module_name_singular", 'module_icon',
+                'module_action', 'title', 'roles', 'permissions', 'body_class'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -281,7 +288,7 @@ class UserController extends Controller
             if ($user_id == $user_provider->user->id) {
                 $user_provider->delete();
 
-                flash('<i class="fas fa-exclamation-triangle"></i> Unlinked from User, "'.$user_provider->user->name.'"!')->success();
+                flash('<i class="fas fa-exclamation-triangle"></i> Unlinked from User, "' . $user_provider->user->name . '"!')->success();
 
                 return redirect()->back();
             } else {

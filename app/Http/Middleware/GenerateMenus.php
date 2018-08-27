@@ -10,7 +10,7 @@ class GenerateMenus
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Closure $next
      *
      * @return mixed
      */
@@ -22,34 +22,34 @@ class GenerateMenus
                 'route' => 'backend.dashboard',
                 'class' => 'nav-item',
             ])
-            ->data([
-                'order'         => 1,
-                'activematches' => 'admin/dashboard*',
-            ])
-            ->link->attr([
-                'class' => 'nav-link',
-            ]);
+                ->data([
+                    'order' => 1,
+                    'activematches' => 'admin/dashboard*',
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                ]);
 
             // Separator: Access Management
             $menu->add('Management', [
                 'class' => 'nav-title',
             ])
-            ->data('order', 77);
+                ->data('order', 77);
 
             // Access Control Dropdown
             $accessControl = $menu->add('<i class="icon-key"></i> Access Control', [
                 'class' => 'nav-item nav-dropdown',
             ])
-            ->data([
-                'order'         => 78,
-                'activematches' => [
-                    'admin/roles*',
-                    'admin/users*',
-                ],
-            ]);
+                ->data([
+                    'order' => 78,
+                    'activematches' => [
+                        'admin/roles*',
+                        'admin/users*',
+                    ],
+                ]);
             $accessControl->link->attr([
                 'class' => 'nav-link nav-dropdown-toggle',
-                'href'  => '#',
+                'href' => '#',
             ]);
 
             // Submenu: Users
@@ -57,25 +57,25 @@ class GenerateMenus
                 'route' => 'backend.users.index',
                 'class' => 'nav-item',
             ])
-            ->data([
-                'order'         => 79,
-                'activematches' => 'admin/users*',
-            ])
-            ->link->attr([
-                'class' => 'nav-link',
-            ]);
+                ->data([
+                    'order' => 79,
+                    'activematches' => 'admin/users*',
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                ]);
             // Submenu: Roles
             $accessControl->add('<i class="icon-people"></i> Roles', [
                 'route' => 'backend.roles.index',
                 'class' => 'nav-item',
             ])
-            ->data([
-                'order'         => 80,
-                'activematches' => 'admin/roles*',
-            ])
-            ->link->attr([
-                'class' => 'nav-link',
-            ]);
+                ->data([
+                    'order' => 80,
+                    'activematches' => 'admin/roles*',
+                ])
+                ->link->attr([
+                    'class' => 'nav-link',
+                ]);
 
             if (auth()->check() && auth()->user()->hasAnyPermission(['edit_settings'])) {
                 // Settings
@@ -83,13 +83,13 @@ class GenerateMenus
                     'route' => 'backend.settings',
                     'class' => 'nav-item',
                 ])
-                ->data([
-                    'order'         => 81,
-                    'activematches' => 'admin/settings*',
-                ])
-                ->link->attr([
-                    'class' => 'nav-link',
-                ]);
+                    ->data([
+                        'order' => 81,
+                        'activematches' => 'admin/settings*',
+                    ])
+                    ->link->attr([
+                        'class' => 'nav-link',
+                    ]);
             }
 
             if (auth()->check() && auth()->user()->hasAnyPermission(['view_backups'])) {
@@ -98,23 +98,23 @@ class GenerateMenus
                     'route' => 'backend.backups.index',
                     'class' => 'nav-item',
                 ])
-                ->data([
-                    'order'         => 82,
-                    'activematches' => 'admin/backups*',
-                ])
-                ->link->attr([
-                    'class' => 'nav-link',
-                ]);
+                    ->data([
+                        'order' => 82,
+                        'activematches' => 'admin/backups*',
+                    ])
+                    ->link->attr([
+                        'class' => 'nav-link',
+                    ]);
             }
 
             // Newsletter Dropdown
             $newslettersControl = $menu->add('<i class="fas fa-newspaper"></i> Newsletter', [
                 'class' => 'nav-item nav-dropdown',
             ])
-            ->data('order', 7);
+                ->data('order', 7);
             $newslettersControl->link->attr([
                 'class' => 'nav-link nav-dropdown-toggle',
-                'href'  => '#',
+                'href' => '#',
             ]);
 
             // Submenu: Posts
@@ -122,10 +122,10 @@ class GenerateMenus
                 'route' => 'backend.newsletters.index',
                 'class' => 'nav-item',
             ])
-            ->data('order', 8)
-            ->link->attr([
-                'class' => 'nav-link',
-            ]);
+                ->data('order', 8)
+                ->link->attr([
+                    'class' => 'nav-link',
+                ]);
 
             $menu->filter(function ($item) {
                 // if ($item->title === '<i class="icon-key"></i> Access Control') {

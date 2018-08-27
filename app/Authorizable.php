@@ -5,12 +5,12 @@ namespace App;
 trait Authorizable
 {
     private $abilities = [
-        'index'   => 'view',
-        'edit'    => 'edit',
-        'show'    => 'view',
-        'update'  => 'edit',
-        'create'  => 'add',
-        'store'   => 'add',
+        'index' => 'view',
+        'edit' => 'edit',
+        'show' => 'view',
+        'update' => 'edit',
+        'create' => 'add',
+        'store' => 'add',
         'destroy' => 'delete',
         'restore' => 'restore',
         'trashed' => 'restore',
@@ -38,7 +38,7 @@ trait Authorizable
         $routeName = explode('.', \Request::route()->getName());
         $action = array_get($this->getAbilities(), $method);
 
-        return $action ? $action.'_'.$routeName[1] : null;
+        return $action ? $action . '_' . $routeName[1] : null;
     }
 
     private function getAbilities()

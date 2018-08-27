@@ -48,9 +48,9 @@
             $field_placeholder = "-- Select an option --";
             $required = "required";
             $select_options = [
-                'Weekly'=>'Weekly',
-                'Monthly'=>'Monthly',
-                'Special'=>'Special',
+                'Weekly' => 'Weekly',
+                'Monthly' => 'Monthly',
+                'Special' => 'Special',
             ];
             ?>
             {{ html()->label($field_lable, $field_name) }} {!! fielf_required($required) !!}
@@ -69,7 +69,10 @@
             <div class="input-group mb-3">
                 {{ html()->text($field_name)->placeholder($field_placeholder)->class('form-control')->attributes(["$required"]) }}
                 <div class="input-group-append">
-                    <button id="btn_{{$field_name}}" data-input="{{$field_name}}" data-preview="holder" class="btn btn-info" class="btn btn-outline-secondary" type="button"><i class="fas fa-folder-open"></i> Browse</button>
+                    <button id="btn_{{$field_name}}" data-input="{{$field_name}}" data-preview="holder"
+                            class="btn btn-info" class="btn btn-outline-secondary" type="button"><i
+                                class="fas fa-folder-open"></i> Browse
+                    </button>
                 </div>
             </div>
         </div>
@@ -85,9 +88,9 @@
             $field_placeholder = "-- Select an option --";
             $required = "required";
             $select_options = [
-                '1'=>'Published',
-                '0'=>'Unpublished',
-                '2'=>'Draft'
+                '1' => 'Published',
+                '0' => 'Unpublished',
+                '2' => 'Draft'
             ];
             ?>
             {{ html()->label($field_lable, $field_name) }} {!! fielf_required($required) !!}
@@ -115,49 +118,51 @@
 
 @push('after-styles')
 
-<!-- Date Time Picker -->
-<link rel="stylesheet" href="{{ asset('vendor/bootstrap-4-datetime-picker/css/tempusdominus-bootstrap-4.min.css') }}" />
+    <!-- Date Time Picker -->
+    <link rel="stylesheet"
+          href="{{ asset('vendor/bootstrap-4-datetime-picker/css/tempusdominus-bootstrap-4.min.css') }}"/>
 
 @endpush
 
 @push ('after-scripts')
 
-<!-- Date Time Picker & Moment Js-->
-<script type="text/javascript" src="{{ asset('vendor/moment/moment.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/bootstrap-4-datetime-picker/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- Date Time Picker & Moment Js-->
+    <script type="text/javascript" src="{{ asset('vendor/moment/moment.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('vendor/bootstrap-4-datetime-picker/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
-<script type="text/javascript">
-$(function() {
-    $('.datetime').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm:ss',
-        icons: {
-            time: 'far fa-clock',
-            date: 'far fa-calendar-alt',
-            up: 'fas fa-arrow-up',
-            down: 'fas fa-arrow-down',
-            previous: 'fas fa-chevron-left',
-            next: 'fas fa-chevron-right',
-            today: 'far fa-calendar-check',
-            clear: 'far fa-trash-alt',
-            close: 'fas fa-times'
-        }
-    });
-});
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $('.datetime').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss',
+                icons: {
+                    time: 'far fa-clock',
+                    date: 'far fa-calendar-alt',
+                    up: 'fas fa-arrow-up',
+                    down: 'fas fa-arrow-down',
+                    previous: 'fas fa-chevron-left',
+                    next: 'fas fa-chevron-right',
+                    today: 'far fa-calendar-check',
+                    clear: 'far fa-trash-alt',
+                    close: 'fas fa-times'
+                }
+            });
+        });
+    </script>
 
-<script type="text/javascript" src="{{ asset('/plugins/ckeditor/ckeditor.js') }}"></script>
-<script type="text/javascript" src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    <script type="text/javascript" src="{{ asset('/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="/vendor/laravel-filemanager/js/lfm.js"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-$('#btn_image').filemanager('image');
+        $('#btn_image').filemanager('image');
 
-CKEDITOR.replace( 'content', {
-    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
-    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
-});
+        CKEDITOR.replace('content', {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+        });
 
-</script>
+    </script>
 @endpush

@@ -18,8 +18,8 @@ class GeneralException extends Exception
     /**
      * GeneralException constructor.
      *
-     * @param string         $message
-     * @param int            $code
+     * @param string $message
+     * @param int $code
      * @param Throwable|null $previous
      */
     public function __construct($message = '', $code = 0, Throwable $previous = null)
@@ -49,7 +49,7 @@ class GeneralException extends Exception
         /*
          * All instances of GeneralException redirect back with a flash message to show a bootstrap alert-error
          */
-        flash('<i class="fas fa-exclamation-triangle"></i> '.$this->message)->error();
+        flash('<i class="fas fa-exclamation-triangle"></i> ' . $this->message)->error();
 
         return redirect()
             ->back()

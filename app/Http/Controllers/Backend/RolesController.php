@@ -44,7 +44,8 @@ class RolesController extends Controller
 
         // Log::info($module_name . ' Index View');
 
-        return view("backend.$module_name.index", compact('title', 'page_heading', 'module_icon', 'module_action', 'module_name', "$module_name"));
+        return view("backend.$module_name.index",
+            compact('title', 'page_heading', 'module_icon', 'module_action', 'module_name', "$module_name"));
     }
 
     /**
@@ -62,7 +63,8 @@ class RolesController extends Controller
         $roles = Role::get();
         $permissions = Permission::select('name', 'id')->get();
 
-        return view("backend.$module_name.create", compact('title', 'module_name', 'module_icon', 'module_action', 'roles', 'permissions'));
+        return view("backend.$module_name.create",
+            compact('title', 'module_name', 'module_icon', 'module_action', 'roles', 'permissions'));
     }
 
     /**
@@ -123,12 +125,13 @@ class RolesController extends Controller
         $module_action = 'Show';
 
         $page_heading = label_case($module_title);
-        $title = $page_heading.' '.label_case($module_action);
+        $title = $page_heading . ' ' . label_case($module_action);
 
         $$module_name_singular = $module_model::findOrFail($id);
 
         return view("backend.$module_name.show",
-        compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action', 'module_name_singular', "$module_name_singular", 'page_heading', 'title'));
+            compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action',
+                'module_name_singular', "$module_name_singular", 'page_heading', 'title'));
     }
 
     /**
@@ -152,14 +155,15 @@ class RolesController extends Controller
 
         $$module_name_singular = $module_model::findOrFail($id);
 
-        return view("backend.$module_name.edit", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'permissions'));
+        return view("backend.$module_name.edit",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -174,7 +178,7 @@ class RolesController extends Controller
         $$module_name_singular = $module_model::findOrFail($id);
 
         $this->validate($request, [
-            'name'        => 'required|max:20|unique:roles,name,'.$id,
+            'name' => 'required|max:20|unique:roles,name,' . $id,
             'permissions' => 'required',
         ]);
 
@@ -234,6 +238,7 @@ class RolesController extends Controller
         $$module_name_singular = User::withTrashed()->find($id);
         $$module_name_singular->restore();
 
-        return redirect("admin/$module_name")->with('flash_success', '<i class="fa fa-check"></i> '.label_case($module_name_singular).' Restored Successfully!');
+        return redirect("admin/$module_name")->with('flash_success',
+            '<i class="fa fa-check"></i> ' . label_case($module_name_singular) . ' Restored Successfully!');
     }
 }

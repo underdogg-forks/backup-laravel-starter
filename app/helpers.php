@@ -72,7 +72,7 @@ if (!function_exists('getRtlCss')) {
         array_pop($path);
         $filename = rtrim($filename, '.css');
 
-        return implode('/', $path).'/'.$filename.'.rtl.css';
+        return implode('/', $path) . '/' . $filename . '.rtl.css';
     }
 }
 
@@ -102,7 +102,7 @@ if (!function_exists('style')) {
     /**
      * @param       $url
      * @param array $attributes
-     * @param null  $secure
+     * @param null $secure
      *
      * @return mixed
      */
@@ -117,7 +117,7 @@ if (!function_exists('script')) {
     /**
      * @param       $url
      * @param array $attributes
-     * @param null  $secure
+     * @param null $secure
      *
      * @return mixed
      */
@@ -190,8 +190,8 @@ if (!function_exists('show_column_value')) {
     /**
      * Return Column values as Raw and formatted.
      *
-     * @param string $valueObject   Model Object
-     * @param string $column        Column Name
+     * @param string $valueObject Model Object
+     * @param string $column Column Name
      * @param string $return_format Return Type
      *
      * @return string Raw/Formatted Column Value
@@ -210,10 +210,10 @@ if (!function_exists('show_column_value')) {
             $img_path = asset($value);
 
             $return_text = '<figure class="figure">
-                                <a href="'.$img_path.'" data-lightbox="image-set" data-title="Path: '.$value.'">
-                                    <img src="'.$img_path.'" style="max-width:200px;" class="figure-img img-fluid rounded img-thumbnail" alt="">
+                                <a href="' . $img_path . '" data-lightbox="image-set" data-title="Path: ' . $value . '">
+                                    <img src="' . $img_path . '" style="max-width:200px;" class="figure-img img-fluid rounded img-thumbnail" alt="">
                                 </a>
-                                <figcaption class="figure-caption">Path: '.$value.'</figcaption>
+                                <figcaption class="figure-caption">Path: ' . $value . '</figcaption>
                             </figure>';
         } else {
             $return_text = $value;
@@ -308,6 +308,6 @@ if (!function_exists('humanFilesize')) {
             $i++;
         }
 
-        return round($size, $precision).$units[$i];
+        return round($size, $precision) . $units[$i];
     }
 }

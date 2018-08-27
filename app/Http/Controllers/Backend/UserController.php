@@ -53,7 +53,8 @@ class UserController extends Controller
 
         // Log::info($module_name . ' Index View');
 
-        return view("backend.$module_name.index", compact('title', 'page_heading', 'module_icon', 'module_action', 'module_name', "$module_name"));
+        return view("backend.$module_name.index",
+            compact('title', 'page_heading', 'module_icon', 'module_action', 'module_name', "$module_name"));
     }
 
     /**
@@ -71,7 +72,8 @@ class UserController extends Controller
         $roles = Role::get();
         $permissions = Permission::select('name', 'id')->get();
 
-        return view("backend.$module_name.create", compact('title', 'module_name', 'module_icon', 'module_action', 'roles', 'permissions'));
+        return view("backend.$module_name.create",
+            compact('title', 'module_name', 'module_icon', 'module_action', 'roles', 'permissions'));
     }
 
     /**
@@ -84,8 +86,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|min:3|max:50',
-            'email'    => 'email',
+            'name' => 'required|min:3|max:50',
+            'email' => 'email',
             'password' => 'required|confirmed|min:4',
         ]);
 
@@ -138,12 +140,13 @@ class UserController extends Controller
         $module_action = 'Show';
 
         $page_heading = label_case($module_title);
-        $title = $page_heading.' '.label_case($module_action);
+        $title = $page_heading . ' ' . label_case($module_action);
 
         $$module_name_singular = $module_model::findOrFail($id);
 
         return view("backend.$module_name.show",
-        compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action', 'module_name_singular', "$module_name_singular", 'page_heading', 'title'));
+            compact('module_title', 'module_name', "$module_name", 'module_path', 'module_icon', 'module_action',
+                'module_name_singular', "$module_name_singular", 'page_heading', 'title'));
     }
 
     /**
@@ -166,7 +169,8 @@ class UserController extends Controller
 
         $$module_name_singular = User::findOrFail($id);
 
-        return view("backend.$module_name.profile", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'module_title'));
+        return view("backend.$module_name.profile",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'module_title'));
     }
 
     /**
@@ -188,14 +192,15 @@ class UserController extends Controller
 
         $$module_name_singular = User::findOrFail($id);
 
-        return view("backend.$module_name.profileEdit", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
+        return view("backend.$module_name.profileEdit",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -217,10 +222,10 @@ class UserController extends Controller
         // Handle Avatar upload
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
-            $filename = 'avatar-'.$$module_name_singular->id.'.'.$avatar->getClientOriginalExtension();
+            $filename = 'avatar-' . $$module_name_singular->id . '.' . $avatar->getClientOriginalExtension();
             $img = Image::make($avatar)->resize(null, 400, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path('/photos/avatars/'.$filename));
+            })->save(public_path('/photos/avatars/' . $filename));
             $$module_name_singular->avatar = $filename;
             $$module_name_singular->save();
         }
@@ -249,14 +254,15 @@ class UserController extends Controller
 
         $$module_name_singular = User::findOrFail($id);
 
-        return view("backend.$module_name.changeProfilePassword", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
+        return view("backend.$module_name.changeProfilePassword",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -293,14 +299,15 @@ class UserController extends Controller
 
         $$module_name_singular = User::findOrFail($id);
 
-        return view("backend.$module_name.changePassword", compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
+        return view("backend.$module_name.changePassword",
+            compact('module_name', "$module_name_singular", 'module_icon', 'module_action', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -339,14 +346,16 @@ class UserController extends Controller
         $userRoles = $$module_name_singular->roles->pluck('name')->all();
         $userPermissions = $$module_name_singular->permissions->pluck('name')->all();
 
-        return view("backend.$module_name.edit", compact('userRoles', 'userPermissions', 'module_name', "$module_name_singular", 'module_icon', 'module_action', 'title', 'roles', 'permissions'));
+        return view("backend.$module_name.edit",
+            compact('userRoles', 'userPermissions', 'module_name', "$module_name_singular", 'module_icon',
+                'module_action', 'title', 'roles', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -411,9 +420,9 @@ class UserController extends Controller
 
         $$module_name_singular->delete();
 
-        flash('<i class="fas fa-check"></i> '.$$module_name_singular->name.' User Successfully Deleted!')->success();
+        flash('<i class="fas fa-check"></i> ' . $$module_name_singular->name . ' User Successfully Deleted!')->success();
 
-        Log::info(label_case($module_action)." '$module_name': '".$$module_name_singular->name.', ID:'.$$module_name_singular->id." ' by User:".auth()->user()->name);
+        Log::info(label_case($module_action) . " '$module_name': '" . $$module_name_singular->name . ', ID:' . $$module_name_singular->id . " ' by User:" . auth()->user()->name);
 
         return redirect("admin/$module_name");
     }
@@ -438,17 +447,17 @@ class UserController extends Controller
 
         $$module_name = $module_model::onlyTrashed()->orderBy('deleted_at', 'desc')->paginate();
 
-        Log::info(label_case($module_action).' '.label_case($module_name).' by User:'.auth()->user()->name);
+        Log::info(label_case($module_action) . ' ' . label_case($module_name) . ' by User:' . auth()->user()->name);
 
         return view("backend.$module_name.trash",
-        compact('module_name', 'module_title', "$module_name", 'module_icon', 'page_heading', 'module_action'));
+            compact('module_name', 'module_title', "$module_name", 'module_icon', 'page_heading', 'module_action'));
     }
 
     /**
      * Restore a soft deleted entry.
      *
      * @param Request $request
-     * @param int     $id
+     * @param int $id
      *
      * @return Response
      */
@@ -466,9 +475,9 @@ class UserController extends Controller
         $$module_name_singular = $module_model::withTrashed()->find($id);
         $$module_name_singular->restore();
 
-        flash('<i class="fas fa-check"></i> '.$$module_name_singular->name.' Successfully Restoreded!')->success();
+        flash('<i class="fas fa-check"></i> ' . $$module_name_singular->name . ' Successfully Restoreded!')->success();
 
-        Log::info(label_case($module_action)." '$module_name': '".$$module_name_singular->name.', ID:'.$$module_name_singular->id." ' by User:".auth()->user()->name);
+        Log::info(label_case($module_action) . " '$module_name': '" . $$module_name_singular->name . ', ID:' . $$module_name_singular->id . " ' by User:" . auth()->user()->name);
 
         return redirect("admin/$module_name");
     }
@@ -496,7 +505,7 @@ class UserController extends Controller
             $$module_name_singular->status = 2;
             $$module_name_singular->save();
 
-            flash('<i class="fas fa-check"></i> '.$$module_name_singular->name.' User Successfully Blocked!')->success();
+            flash('<i class="fas fa-check"></i> ' . $$module_name_singular->name . ' User Successfully Blocked!')->success();
 
             return redirect()->back();
         } catch (\Exception $e) {
@@ -527,7 +536,7 @@ class UserController extends Controller
             $$module_name_singular->status = 1;
             $$module_name_singular->save();
 
-            flash('<i class="fas fa-check"></i> '.$$module_name_singular->name.' User Successfully Unblocked!')->success();
+            flash('<i class="fas fa-check"></i> ' . $$module_name_singular->name . ' User Successfully Unblocked!')->success();
 
             return redirect()->back();
         } catch (\Exception $e) {
@@ -556,7 +565,7 @@ class UserController extends Controller
             if ($user_id == $user_provider->user->id) {
                 $user_provider->delete();
 
-                flash('<i class="fas fa-exclamation-triangle"></i> Unlinked from User, "'.$user_provider->user->name.'"!')->success();
+                flash('<i class="fas fa-exclamation-triangle"></i> Unlinked from User, "' . $user_provider->user->name . '"!')->success();
 
                 return redirect()->back();
             } else {

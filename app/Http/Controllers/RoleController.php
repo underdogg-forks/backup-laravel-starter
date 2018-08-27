@@ -67,7 +67,7 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Role                $role
+     * @param \App\Role $role
      *
      * @return \Illuminate\Http\Response
      */

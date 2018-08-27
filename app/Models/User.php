@@ -18,7 +18,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar',
+        'name',
+        'email',
+        'password',
+        'avatar',
     ];
 
     /**
@@ -27,7 +30,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -76,7 +80,7 @@ class User extends Authenticatable
                 break;
 
             default:
-                return '<span class="badge badge-primary">Status:'.$this->status.'</span>';
+                return '<span class="badge badge-primary">Status:' . $this->status . '</span>';
                 break;
         }
     }
@@ -97,7 +101,7 @@ class User extends Authenticatable
                 break;
 
             default:
-                return '<span class="badge badge-primary">Status:'.$this->status.'</span>';
+                return '<span class="badge badge-primary">Status:' . $this->status . '</span>';
                 break;
         }
     }

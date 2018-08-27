@@ -5,11 +5,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Modules\Article\Entities\Tag::class, function (Faker $faker) {
     return [
-        'name'              => $faker->sentence(2),
-        'code'              => '',
-        'description'       => $faker->paragraph,
-        'status'            => 1,
-        'created_at'        => Carbon::now(),
-        'updated_at'        => Carbon::now(),
+        'name' => $faker->sentence(2),
+        'code' => '',
+        'description' => $faker->paragraph,
+        'status' => 1,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
     ];
 });
